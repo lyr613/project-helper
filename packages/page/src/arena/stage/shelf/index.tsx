@@ -29,10 +29,10 @@ export default function Shelf() {
 function Help() {
 	return (
 		<div className={s.Help}>
-			<p className={s.line}>根据含有node_modules | .mvn的查找</p>
+			<p className={s.line}>根据含有.git的查找</p>
 			<p className={s.line}>readme.md的第一行读取为项目名</p>
 			<p className={s.line}>doc下所有preview\.*.(jpg|png)读取为预览图</p>
-			<p className={s.line}>script下读取脚本.js, 基于app路径运行</p>
+			<p className={s.line}>script下读取脚本.(js|sh|py), 基于app路径运行</p>
 			<p className={s.line}>点击路径打开资源管理器, ctrl点击用vscode打开项目</p>
 		</div>
 	)
