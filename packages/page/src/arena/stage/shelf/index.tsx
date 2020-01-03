@@ -94,6 +94,17 @@ function Bar() {
 
 function AppList() {
 	const list = useObservable(() => list_filtered$, [])
+	if (!list.length) {
+		return (
+			<div
+				style={{
+					fontSize: '16px',
+				}}
+			>
+				没有查到项目
+			</div>
+		)
+	}
 	return (
 		<div className={s.AppList}>
 			{list.map(app => (

@@ -31,7 +31,7 @@ export function watch_app() {
     })
     /** 用vscode打开目录 */
     ipcMain.on('code-it', (_, src: string) => {
-        cp.execSync(`cd ${src} && code .`)
+        cp.execSync(` code ${src} `)
     })
 }
 
