@@ -6,7 +6,7 @@ const ds = require('./do-shell')
 // 使用npx在windows上有bug
 let shell = ''
 
-const worker = path.resolve('.', 'node_modules', '.bin', 'electron')
+const worker = path.resolve(__dirname, '..', 'node_modules', '.bin', 'electron')
 const platform = os.platform()
 
 if (platform === 'win32') {
