@@ -14,6 +14,8 @@ interface app {
 	scripts: string[]
 	/** 项目类型 */
 	type: 'java' | 'js'
+	/** 最后修改时间 */
+	update_time: number
 }
 /** 项目列表 */
 export const app_list$ = new BehaviorSubject<app[]>(load_local())
@@ -49,6 +51,7 @@ function of_app(p?: Param): app {
 		previews: [],
 		scripts: ['123', '34qq'],
 		type: 'js',
+		update_time: 0,
 	}
 	Object.assign(re, p)
 	return re

@@ -19,7 +19,11 @@ export const list_filtered$ = app_list$.pipe(
 						return true
 					})
 					.sort((a, b) => {
-						return b.previews.length - a.previews.length
+						let re = 0
+						re += (b.previews.length - a.previews.length) * 100
+						re += ((b.update_time - a.update_time) / (1000 * 60)) | 0
+
+						return re
 					})
 			}),
 		)

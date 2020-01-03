@@ -122,6 +122,7 @@ function map_infor(src: string) {
         previews: find_preview(),
         scripts: find_scripts(),
         type: get_type(),
+        update_time: get_time(),
     }
     return re
     function find_name() {
@@ -164,5 +165,9 @@ function map_infor(src: string) {
             return 'java'
         }
         return 'unknown'
+    }
+    function get_time() {
+        const info = fs.statSync(src).mtime
+        return info.getTime()
     }
 }
