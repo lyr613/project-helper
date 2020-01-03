@@ -27,7 +27,11 @@ export function watch_app() {
     })
     /** 进入项目并执行脚本 */
     ipcMain.on('run-script', (_, app: String, script: string) => {
-        cp.execSync(`cd ${app} && start ${script}`)
+        if (script.match(/.js$/)) {
+            cp.exec(`cd ${app} && start cmd /C node ${script} `)
+            return
+        }
+        cp.exec(`cd ${app} && start ${script}`)
     })
     /** 用vscode打开目录 */
     ipcMain.on('code-it', (_, src: string) => {
