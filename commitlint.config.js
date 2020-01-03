@@ -17,6 +17,7 @@ module.exports = {
                 'revert', // Reverts a previous commit. 回滚到上一个版本
                 'test', // Adds or modifies tests. 测试用例，包括单元测试、集成测试等
                 'save',
+                'deploy', // 发布新版
             ],
         ],
     },
