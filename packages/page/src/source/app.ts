@@ -12,6 +12,8 @@ interface app {
 	previews: string[]
 	/** 脚本路径 */
 	scripts: string[]
+	/** 项目类型 */
+	type: 'java' | 'js'
 }
 /** 项目列表 */
 export const app_list$ = new BehaviorSubject<app[]>([])
@@ -38,12 +40,13 @@ function find_ipc() {
 }
 
 function of_app(p?: Param): app {
-	const re = {
+	const re: app = {
 		id: Math.random(),
 		src: 'd://xxx/xxx',
 		name: '项目123',
 		previews: [],
 		scripts: ['123', '34qq'],
+		type: 'js',
 	}
 	Object.assign(re, p)
 	return re

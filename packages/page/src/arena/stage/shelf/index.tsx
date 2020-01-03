@@ -1,13 +1,14 @@
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
 import s from './s.module.scss'
-import { DefaultButton, ActionButton, PrimaryButton } from 'office-ui-fabric-react'
+import { DefaultButton, ActionButton, PrimaryButton, Dropdown } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
 import { book_list$, create_book, book_focu$, book_find$ } from '@/source'
 import { electron, book_local_helper, ipc } from '@/const'
 import { next_router } from '@/function/router'
 import { app_list$, app_find$, app_finding$ } from '@/source/app'
 import path from 'path'
+import { list_filtered$, filter$ } from './subj'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -19,6 +20,7 @@ export default function Shelf() {
 				<Finding />
 			) : (
 				<>
+					<Bar />
 					<Find />
 					<AppList />
 				</>
@@ -30,7 +32,7 @@ export default function Shelf() {
 function Help() {
 	return (
 		<div className={s.Help}>
-			<p className={s.line}>根据含有node_modules的查找</p>
+			<p className={s.line}>根据含有node_modules | .mvn的查找</p>
 			<p className={s.line}>readme.md的第一行读取为项目名</p>
 			<p className={s.line}>doc下所有preview\.*.(jpg|png)读取为预览图</p>
 			<p className={s.line}>script下读取脚本.js, 基于app路径运行</p>
@@ -67,8 +69,29 @@ function Find() {
 	)
 }
 
+function Bar() {
+	return (
+		<div className={s.Bar}>
+			<Dropdown
+				label="项目类型"
+				options={[
+					{ key: 'all', text: '所有', selected: true },
+					{ key: 'js', text: 'js' },
+					{ key: 'java', text: 'java' },
+				]}
+				onChange={(_, opt) => {
+					const key = (opt?.key as string) ?? 'all'
+					const fil = filter$.value
+					fil.type = key
+					filter$.next(fil)
+				}}
+			></Dropdown>
+		</div>
+	)
+}
+
 function AppList() {
-	const list = useObservable(() => app_list$, [])
+	const list = useObservable(() => list_filtered$, [])
 	return (
 		<div className={s.AppList}>
 			{list.map(app => (
