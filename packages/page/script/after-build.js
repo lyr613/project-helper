@@ -32,3 +32,11 @@ if (fs.existsSync(path.join(elec, project))) {
 
 fs.renameSync('./build', project)
 cp.execSync(`scp -r  ${project} ${elec}`)
+
+if (fs.existsSync(path.join(self, project))) {
+	try {
+		cp.execSync(`cd ${self} && rm -rf ${project}`)
+	} catch (error) {
+		cp.execSync(`cd ${self} && rmdir /s/q ${project}`)
+	}
+}
