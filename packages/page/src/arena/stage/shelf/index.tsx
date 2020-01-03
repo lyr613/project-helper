@@ -68,6 +68,10 @@ function Find() {
 }
 
 function Bar() {
+	const li = useObservable(() => app_list$, [])
+	if (!li.length) {
+		return null
+	}
 	return (
 		<div className={s.Bar}>
 			<Dropdown
