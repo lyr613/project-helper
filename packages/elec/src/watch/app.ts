@@ -160,6 +160,9 @@ function map_infor(src: string) {
         if (dfs.includes('node_modules')) {
             return 'js'
         }
-        return 'java'
+        if (dfs.includes('.mvn')) {
+            return 'java'
+        }
+        return 'unknown'
     }
 }
