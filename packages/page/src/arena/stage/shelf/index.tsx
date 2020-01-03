@@ -17,8 +17,8 @@ export default function Shelf() {
 				<Finding />
 			) : (
 				<>
-					<Bar />
 					<Find />
+					<Bar />
 					<AppList />
 				</>
 			)}

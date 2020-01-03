@@ -51,12 +51,13 @@ function find_list(src: string) {
         '.asar',
         '.sys',
         'IntelOptaneData',
-        '.git',
         '.vscode',
         '.idea',
+        'node_modules',
+        '.mvn',
     ]
     // 碰到这些添加到结果里
-    const find_flags = ['node_modules', '.mvn']
+    const find_flags = ['.git']
     // deep_find(src)
     tower_find()
     return Array.from(new Set(nm_list))
