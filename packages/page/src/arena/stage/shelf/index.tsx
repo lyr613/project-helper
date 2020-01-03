@@ -3,11 +3,8 @@ import React, { useState, useEffect } from 'react'
 import s from './s.module.scss'
 import { DefaultButton, ActionButton, PrimaryButton, Dropdown } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
-import { book_list$, create_book, book_focu$, book_find$ } from '@/source'
 import { electron, book_local_helper, ipc } from '@/const'
-import { next_router } from '@/function/router'
 import { app_list$, app_find$, app_finding$ } from '@/source/app'
-import path from 'path'
 import { list_filtered$, filter$ } from './subj'
 
 /** 项目列表 */
@@ -36,6 +33,7 @@ function Help() {
 			<p className={s.line}>readme.md的第一行读取为项目名</p>
 			<p className={s.line}>doc下所有preview\.*.(jpg|png)读取为预览图</p>
 			<p className={s.line}>script下读取脚本.js, 基于app路径运行</p>
+			<p className={s.line}>点击路径打开资源管理器, ctrl点击用vscode打开项目</p>
 		</div>
 	)
 }
@@ -105,8 +103,13 @@ function AppList() {
 							<span className={s.label}>地址</span>
 							<span
 								className={s.canclk}
-								onClick={() => {
-									ipc().send('start-dir-or-file', app.src)
+								onClick={e => {
+									e.persist()
+									if (e.ctrlKey) {
+										ipc().send('code-it', app.src)
+									} else {
+										ipc().send('start-dir-or-file', app.src)
+									}
 								}}
 							>
 								{app.src}

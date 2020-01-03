@@ -29,6 +29,10 @@ export function watch_app() {
     ipcMain.on('run-script', (_, app: String, script: string) => {
         cp.execSync(`cd ${app} && start ${script}`)
     })
+    /** 用vscode打开目录 */
+    ipcMain.on('code-it', (_, src: string) => {
+        cp.execSync(`cd ${src} && code .`)
+    })
 }
 
 function find_list(src: string) {
