@@ -1,0 +1,53 @@
+{
+    "name": "writer-electron",
+    "version": "0.0.2",
+    "description": "",
+    "main": "build/index.js",
+    "scripts": {
+        "preelectron-start": "npx webpack --mode development ",
+        "electron-start": " node ./scripts/electron-start.js ",
+        "build": "npx webpack --mode production",
+        "electron-build": "npx webpack --mode production && npx electron-builder"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "typescript": "^3.7.4"
+    },
+    "devDependencies": {
+        "clean-webpack-plugin": "^3.0.0",
+        "electron": "7.1.7",
+        "electron-builder": "^21.2.0",
+        "ts-loader": "^6.2.1",
+        "webpack": "^4.41.5",
+        "webpack-cli": "^3.3.10"
+    },
+    "build": {
+        "productName": "soft-app-helper",
+        "appId": "org.simulatedgreg.apphelper",
+        "directories": {
+            "output": "build-final"
+        },
+        "files": [
+            "./*",
+            "./build/**",
+            "./build-page/**"
+        ],
+        "dmg": {
+            "contents": [
+                {
+                    "x": 410,
+                    "y": 150,
+                    "type": "link",
+                    "path": "/Applications"
+                },
+                {
+                    "x": 130,
+                    "y": 150,
+                    "type": "file"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+	"name": "writer-page",
+	"author": "秋无衣",
+	"homepage": ".",
+	"version": "0.0.2",
+	"private": true,
+	"dependencies": {
+		"@testing-library/jest-dom": "^4.2.4",
+		"@testing-library/react": "^9.3.2",
+		"@testing-library/user-event": "^7.1.2",
+		"@types/jest": "24.0.13",
+		"@types/node": "12.0.2",
+		"@types/react": "16.8.17",
+		"@types/react-dom": "16.8.4",
+		"@types/react-router-dom": "^5.1.3",
+		"node-sass": "^4.13.0",
+		"office-ui-fabric-react": "^7.69.2",
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0",
+		"react-router-dom": "^5.1.2",
+		"react-scripts": "3.3.0",
+		"rxjs": "^6.5.3",
+		"rxjs-hooks": "^0.5.2",
+		"typescript": "3.7.4"
+	},
+	"devDependencies": {
+		"customize-cra": "^0.9.1",
+		"electron": "7.1.7",
+		"prettier": "^1.19.1",
+		"react-app-rewired": "^2.1.5"
+	},
+	"scripts": {
+		"start": "react-app-rewired start",
+		"build": "react-app-rewired build",
+		"postbuild": "node ./script/after-build.js"
+	},
+	"eslintConfig": {
+		"extends": "react-app",
+		"rules": {
+			"indent": "off"
+		}
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
+}

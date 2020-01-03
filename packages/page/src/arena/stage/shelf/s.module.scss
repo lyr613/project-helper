@@ -1,0 +1,73 @@
+.Shelf {
+	font-size: 0;
+}
+.new-one {
+	margin: 10px;
+}
+
+.Help {
+	margin: 10px;
+	.line {
+		margin: 0;
+		line-height: 26px;
+		font-size: 16px;
+		&:hover {
+			background-color: rgb(230, 230, 230);
+		}
+	}
+}
+
+.AppList {
+	.one {
+		margin: 10px;
+		position: relative;
+		overflow: hidden;
+		box-sizing: border-box;
+		height: 200px;
+		padding: 10px;
+		background-color: #a5b9d1;
+		.left {
+			display: inline-block;
+			vertical-align: top;
+			.line {
+				display: flex;
+				width: 100%;
+				line-height: 36px;
+				font-size: 16px;
+				align-items: center;
+				color: rgb(0, 0, 0);
+				.label {
+					&::after {
+						content: ':';
+						padding-right: 10px;
+					}
+				}
+				.canclk {
+					color: blue;
+					cursor: pointer;
+					&:hover {
+						color: red;
+					}
+				}
+			}
+		}
+		.imgbox {
+			float: right;
+			height: 100%;
+			.img {
+				height: 100%;
+			}
+		}
+
+		.cover {
+			float: right;
+			vertical-align: top;
+			width: 120px;
+			height: 160px;
+			background-color: rgba(192, 192, 192, 0.158);
+			.img {
+				height: 100%;
+			}
+		}
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"plugins": [
+		// 可选链, 已经不需要插件了
+		// "@babel/plugin-proposal-optional-chaining",
+		// ?? 合并值
+	],
+	"presets": ["react-app"]
+}
