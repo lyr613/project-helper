@@ -1,9 +1,11 @@
 import { ipcMain, dialog } from 'electron'
 import path from 'path'
 import fs from 'fs'
+import os from 'os'
 import cp from 'child_process'
 import * as sio from '@/qv-io'
 
+const platform = os.platform()
 export function watch_app() {
     /** 加载顶层 */
     ipcMain.on('app-find', (e) => {
@@ -23,15 +25,28 @@ export function watch_app() {
     })
     /** 大概是windows专用, 打开文件(夹) */
     ipcMain.on('start-dir-or-file', (_, src: string) => {
-        cp.execSync(`start ${src}`)
-    })
-    /** 进入项目并执行脚本 */
-    ipcMain.on('run-script', (_, app: String, script: string) => {
-        if (script.match(/.js$/)) {
-            cp.exec(`cd ${app} && start cmd /C node ${script} `)
-            return
+        if (platform === 'win32') {
+            cp.exec(`start ${src}`)
+        } else {
+            cp.exec(`open ${src}`)
         }
-        cp.exec(`cd ${app} && start ${script}`)
+    })
+    /**
+     * 进入项目并执行脚本
+     */
+    ipcMain.on('run-script', (_, app: string, script: string) => {
+        if (platform === 'win32') {
+            if (script.match(/.js$/)) {
+                cp.exec(`cd ${app} && start cmd /C node ${script} `)
+                return
+            }
+            cp.exec(`cd ${app} && start ${script}`)
+        } else {
+            if (script.match(/.js$/)) {
+                cp.exec(` osascript -e ' tell application "Terminal" to do script "cd ${app} && node ${script}" ' `)
+                return
+            }
+        }
     })
     /** 用vscode打开目录 */
     ipcMain.on('code-it', (_, src: string) => {
