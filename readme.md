@@ -8,13 +8,12 @@
 #### 安装依赖
 
 ```
-// 全局
+// 全局 ,先安装这个环境
 yarn global add lerna
 ```
 
 ```
-lerna bootstrap --npm-client=yarn
-yarn // 顶层的依赖包, 上面的命令不自动安装, 需要手动安装
+yarn -W // 顶层的依赖包, 上面的命令不自动安装, 需要手动安装
 ```
 
 #### 启动
