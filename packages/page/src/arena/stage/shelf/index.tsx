@@ -120,7 +120,7 @@ function AppList() {
 								className={s.canclk}
 								onClick={e => {
 									e.persist()
-									if (e.ctrlKey) {
+									if (e.ctrlKey || e.metaKey) {
 										ipc().send('code-it', app.src)
 									} else {
 										ipc().send('start-dir-or-file', app.src)
