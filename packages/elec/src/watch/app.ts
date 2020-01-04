@@ -65,7 +65,6 @@ function find_list(src: string, e: Electron.IpcMainEvent) {
     const filters = [
         'System',
         'build',
-        'react-scripts',
         'Program Files',
         '.asar',
         '.sys',
