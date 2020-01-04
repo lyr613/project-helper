@@ -71,3 +71,10 @@ function save_local(arr: app[]) {
 	const str = JSON.stringify(arr)
 	localStorage.setItem('app-list', str)
 }
+
+/** 正在查询文件夹深度, 页面显示消息为, 正在查找第x层 */
+export const finding_level$ = new BehaviorSubject('')
+
+ipc().on('find-level', (_, str) => {
+	finding_level$.next(str)
+})

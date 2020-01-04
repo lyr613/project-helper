@@ -19,7 +19,7 @@ export function watch_app() {
                     return false
                 }
                 const src = res.filePaths[0]
-                const app_list = find_list(src).map(map_infor)
+                const app_list = find_list(src, e).map(map_infor)
                 e.reply('app-find', app_list)
             })
     })
@@ -54,7 +54,7 @@ export function watch_app() {
     })
 }
 
-function find_list(src: string) {
+function find_list(src: string, e: Electron.IpcMainEvent) {
     // 结果
     const nm_list: string[] = []
     // 碰到这些过滤
@@ -79,7 +79,10 @@ function find_list(src: string) {
     // 迭代遍历文件夹, 一直到最后一层文件夹数量为0
     function tower_find() {
         let line = [src]
+        let level = 0
         while (line.length) {
+            level++
+            e.reply('find-level', `正在查找第${level}层`)
             const new_line: string[] = []
             line.forEach((dir) => {
                 try {
