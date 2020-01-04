@@ -50,7 +50,11 @@ export function watch_app() {
     })
     /** 用vscode打开目录 */
     ipcMain.on('code-it', (_, src: string) => {
-        cp.exec(` code ${src} `)
+        if (platform === 'win32') {
+            cp.exec(` code ${src} `)
+        } else {
+            cp.exec(` osascript -e ' tell application "Terminal" to do script "cd ${src} && code ."  ' `)
+        }
     })
 }
 
@@ -59,7 +63,7 @@ function find_list(src: string, e: Electron.IpcMainEvent) {
     const nm_list: string[] = []
     // 碰到这些过滤
     const filters = [
-        'System Volume Information',
+        'System',
         'build',
         'react-scripts',
         'Program Files',
@@ -70,6 +74,9 @@ function find_list(src: string, e: Electron.IpcMainEvent) {
         '.idea',
         'node_modules',
         '.mvn',
+        '.npm',
+        '.bash',
+        '.app',
     ]
     // 碰到这些添加到结果里
     const find_flags = ['.git']
@@ -82,11 +89,12 @@ function find_list(src: string, e: Electron.IpcMainEvent) {
         let level = 0
         while (line.length) {
             level++
-            e.reply('find-level', `正在查找第${level}层`)
+            e.reply('finding-level', `正在查找第${level}层`)
             const new_line: string[] = []
             line.forEach((dir) => {
                 try {
                     const cd_dirs = fs.readdirSync(dir)
+                    e.reply('finding-dir', dir)
                     cd_dirs.forEach((cd_dir) => {
                         const full_src = path.join(dir, cd_dir)
                         // 被过滤

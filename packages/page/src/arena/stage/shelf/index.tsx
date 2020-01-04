@@ -4,7 +4,7 @@ import s from './s.module.scss'
 import { DefaultButton, ActionButton, PrimaryButton, Dropdown } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
 import { electron, book_local_helper, ipc } from '@/const'
-import { app_list$, app_find$, app_finding$, finding_level$ } from '@/source/app'
+import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
 
 /** 项目列表 */
@@ -40,6 +40,7 @@ function Help() {
 
 function Finding() {
 	const msg = useObservable(() => finding_level$, '')
+	const dir = useObservable(() => finding_dir$, '')
 	return (
 		<div
 			className={s.Finding}
@@ -49,6 +50,7 @@ function Finding() {
 			}}
 		>
 			查找中, {msg}
+			<p>{dir}</p>
 		</div>
 	)
 }
