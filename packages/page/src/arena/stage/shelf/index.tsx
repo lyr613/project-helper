@@ -111,13 +111,13 @@ function AppList() {
 	return (
 		<div className={s.AppList}>
 			{list.map(app => (
-				<div className={s.one} key={app.id}>
+				<div className={[s.one, list.length < 10 ? s.list : s.card].join(' ')} key={app.id}>
 					<div className={s.left}>
 						<div className={s.line}>
 							<span className={s.label}>项目名</span>
 							<span>{app.name}</span>
 						</div>
-						<div className={s.line}>
+						<div className={s.line} title={app.src}>
 							<span className={s.label}>地址</span>
 							<span
 								className={s.canclk}
@@ -135,20 +135,22 @@ function AppList() {
 						</div>
 						<div className={s.line}>
 							<span className={s.label}>脚本</span>
-							{app.scripts.map(scpt => (
-								<span
-									key={scpt}
-									className={s.canclk}
-									onClick={() => {
-										ipc().send('run-script', app.src, scpt)
-									}}
-									style={{
-										padding: '0 10px',
-									}}
-								>
-									{scpt.split(/[\\/]/).reverse()[0]}
-								</span>
-							))}
+							<div className={s.value}>
+								{app.scripts.map(scpt => (
+									<span
+										key={scpt}
+										className={s.canclk}
+										onClick={() => {
+											ipc().send('run-script', app.src, scpt)
+										}}
+										style={{
+											padding: '0 10px 0 0',
+										}}
+									>
+										{scpt.split(/[\\/]/).reverse()[0]}
+									</span>
+								))}
+							</div>
 						</div>
 					</div>
 					<div className={s.imgbox}>

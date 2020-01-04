@@ -21,25 +21,30 @@
 }
 
 .AppList {
+	display: flex;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0 10px;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
 	.one {
-		margin: 10px;
 		position: relative;
+		margin: 10px 0 0;
 		overflow: hidden;
 		box-sizing: border-box;
-		height: 200px;
 		padding: 10px;
-		background-color: #a5b9d1;
+		white-space: nowrap;
 		.left {
 			display: inline-block;
 			vertical-align: top;
 			.line {
 				display: flex;
 				width: 100%;
-				line-height: 36px;
 				font-size: 16px;
-				align-items: center;
 				color: rgb(0, 0, 0);
 				.label {
+					white-space: nowrap;
 					&::after {
 						content: ':';
 						padding-right: 10px;
@@ -54,6 +59,16 @@
 				}
 			}
 		}
+	}
+	.list {
+		width: 100%;
+		height: 200px;
+		background-color: #a5b9d1;
+
+		.line {
+			line-height: 36px;
+			align-items: center;
+		}
 		.imgbox {
 			float: right;
 			height: 100%;
@@ -61,15 +76,32 @@
 				height: 100%;
 			}
 		}
+	}
+	.card {
+		width: calc(33.33% - 7px);
+		&:hover {
+			background-color: #a5b9d1;
+		}
+		.line {
+			line-height: 26px;
+			align-items: flex-start;
+			.value {
+				white-space: pre-line;
+			}
+		}
+		.imgbox {
+			position: absolute;
+			z-index: -1;
+			left: 0;
+			top: 0;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			background-color: #a5b9d1;
 
-		.cover {
-			float: right;
-			vertical-align: top;
-			width: 120px;
-			height: 160px;
-			background-color: rgba(192, 192, 192, 0.158);
 			.img {
 				height: 100%;
+				opacity: 0.5;
 			}
 		}
 	}
