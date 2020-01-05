@@ -23,7 +23,7 @@
         }
     },
     "lint-staged": {
-        "packages/**/*.{js,jsx,json,ts,tsx,css,scss,java}": [
+        "packages/**/*.{js,jsx,json,ts,tsx,css,scss}": [
             "prettier --write",
             "git add"
         ],
