@@ -27,6 +27,7 @@
 		"customize-cra": "^0.9.1",
 		"electron": "7.1.7",
 		"prettier": "^1.19.1",
+		"prettier-plugin-java": "^0.6.0",
 		"react-app-rewired": "^2.1.5"
 	},
 	"scripts": {
