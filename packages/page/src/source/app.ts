@@ -17,6 +17,7 @@ interface app {
 	/** 最后修改时间 */
 	update_time: number
 }
+export type app_type = app
 /** 项目列表 */
 export const app_list$ = new BehaviorSubject<app[]>(load_local())
 /** 查询项目列表 */

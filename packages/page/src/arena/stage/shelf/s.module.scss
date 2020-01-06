@@ -24,7 +24,7 @@
 	display: flex;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 0 10px;
+	padding: 0 10px 10px;
 	flex-wrap: wrap;
 	justify-content: space-between;
 
@@ -78,24 +78,40 @@
 		}
 	}
 	.card {
+		display: flex;
 		width: calc(33.33% - 7px);
+		height: 120px;
+		background-color: #a5b9d1;
+		flex-direction: row-reverse;
+		transition: all 0.3s linear;
 		&:hover {
-			background-color: #a5b9d1;
+			background-color: #8dacd3;
 		}
-		.line {
-			line-height: 26px;
-			align-items: flex-start;
-			.value {
-				white-space: pre-line;
+		.left {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			width: 80%;
+			white-space: pre-line;
+
+			.line {
+				display: none;
+				line-height: 26px;
+				.label {
+					display: block;
+					color: rgb(77, 77, 77);
+				}
+				.value,
+				.canclk {
+					padding-left: 20px;
+				}
+			}
+			.project {
+				display: block;
 			}
 		}
 		.imgbox {
-			position: absolute;
-			z-index: -1;
-			left: 0;
-			top: 0;
 			overflow: hidden;
-			width: 100%;
 			height: 100%;
 			background-color: #a5b9d1;
 
@@ -103,6 +119,31 @@
 				height: 100%;
 				opacity: 0.5;
 			}
+		}
+	}
+	.hover {
+		.left {
+			position: unset;
+			width: 100%;
+			.line {
+				display: block;
+				white-space: nowrap;
+				.label {
+					display: inline;
+				}
+				.value {
+					display: inline-block;
+					vertical-align: top;
+					padding: 0;
+					white-space: pre-line;
+				}
+				.canclk {
+					padding: 0;
+				}
+			}
+		}
+		.imgbox {
+			display: none;
 		}
 	}
 }

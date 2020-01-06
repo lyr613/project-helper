@@ -6,6 +6,7 @@ import { useObservable } from 'rxjs-hooks'
 import { electron, book_local_helper, ipc } from '@/const'
 import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
+import { app_type } from '@/source'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -111,55 +112,77 @@ function AppList() {
 	return (
 		<div className={s.AppList}>
 			{list.map(app => (
-				<div className={[s.one, list.length < 10 ? s.list : s.card].join(' ')} key={app.id}>
-					<div className={s.left}>
-						<div className={s.line}>
-							<span className={s.label}>项目名</span>
-							<span>{app.name}</span>
-						</div>
-						<div className={s.line} title={app.src}>
-							<span className={s.label}>地址</span>
+				<Item app={app} key={app.id} be_card={list.length > 10} />
+			))}
+		</div>
+	)
+}
+
+interface p {
+	app: app_type
+	be_card: boolean
+}
+function Item(p: p) {
+	const { app, be_card } = p
+	const [hover, set_hover] = useState(false)
+	return (
+		<div
+			className={[s.one, be_card ? s.card : s.list, hover ? s.hover : ''].join(' ')}
+			key={app.id}
+			onMouseEnter={() => set_hover(true)}
+			onMouseLeave={() => set_hover(false)}
+		>
+			<div className={s.left}>
+				<div className={[s.line, s.project].join(' ')}>
+					<span className={s.label}>项目</span>
+					<span className={s.value}>{app.name}</span>
+				</div>
+				<div className={[s.line, s.project].join(' ')} title={app.src}>
+					<span className={s.label}>地址</span>
+					<span
+						className={s.canclk}
+						onClick={e => {
+							e.persist()
+							if (e.ctrlKey || e.metaKey) {
+								ipc().send('code-it', app.src)
+							} else {
+								ipc().send('start-dir-or-file', app.src)
+							}
+						}}
+					>
+						{app.src
+							.split(/[\\/]/)
+							.reverse()
+							.map((ss, i) => (i < 3 ? ss : '...'))
+							.reverse()
+							.join('/')}
+					</span>
+				</div>
+				<div className={s.line}>
+					<span className={s.label}>脚本</span>
+					<div className={s.value}>
+						{app.scripts.map(scpt => (
 							<span
+								key={scpt}
 								className={s.canclk}
-								onClick={e => {
-									e.persist()
-									if (e.ctrlKey || e.metaKey) {
-										ipc().send('code-it', app.src)
-									} else {
-										ipc().send('start-dir-or-file', app.src)
-									}
+								onClick={() => {
+									ipc().send('run-script', app.src, scpt)
+								}}
+								style={{
+									padding: '0 10px 0 0',
 								}}
 							>
-								{app.src}
+								{scpt.split(/[\\/]/).reverse()[0]}
 							</span>
-						</div>
-						<div className={s.line}>
-							<span className={s.label}>脚本</span>
-							<div className={s.value}>
-								{app.scripts.map(scpt => (
-									<span
-										key={scpt}
-										className={s.canclk}
-										onClick={() => {
-											ipc().send('run-script', app.src, scpt)
-										}}
-										style={{
-											padding: '0 10px 0 0',
-										}}
-									>
-										{scpt.split(/[\\/]/).reverse()[0]}
-									</span>
-								))}
-							</div>
-						</div>
-					</div>
-					<div className={s.imgbox}>
-						{app.previews.map(img => (
-							<img src={img} key={img} className={s.img} alt="" />
 						))}
 					</div>
 				</div>
-			))}
+			</div>
+			<div className={s.imgbox}>
+				{app.previews.map(img => (
+					<img src={img} key={img} className={s.img} alt="" />
+				))}
+			</div>
 		</div>
 	)
 }
