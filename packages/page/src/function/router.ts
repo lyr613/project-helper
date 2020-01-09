@@ -3,11 +3,8 @@ import { createHashHistory } from 'history'
 let prev_router = '-1'
 
 export const routers = {
-	shelf: '书架',
-	chapter: '章节',
-	edit: '编写',
-	help: '帮助',
-	npc: '角色',
+	home: '首页',
+	focu: '解析',
 }
 
 export type routers = keyof typeof routers

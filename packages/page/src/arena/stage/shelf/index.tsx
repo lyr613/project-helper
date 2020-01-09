@@ -4,9 +4,10 @@ import s from './s.module.scss'
 import { DefaultButton, ActionButton, PrimaryButton, Dropdown } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
 import { electron, book_local_helper, ipc } from '@/const'
-import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$ } from '@/source/app'
+import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$, app_focu$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
 import { app_type } from '@/source'
+import { next_router } from '@/function/router'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -177,6 +178,15 @@ function Item(p: p) {
 						))}
 					</div>
 				</div>
+			</div>
+			<div
+				className={s.focu}
+				onClick={() => {
+					app_focu$.next(app)
+					next_router('focu')
+				}}
+			>
+				解析
 			</div>
 			<div className={s.imgbox}>
 				{app.previews.map(img => (

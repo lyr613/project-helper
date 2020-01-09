@@ -120,6 +120,9 @@
 				opacity: 0.5;
 			}
 		}
+		.focu {
+			display: none;
+		}
 	}
 	.hover {
 		.left {
@@ -144,6 +147,16 @@
 		}
 		.imgbox {
 			display: none;
+		}
+		.focu {
+			display: block;
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			font-size: 16px;
+			color: blue;
+			user-select: none;
+			cursor: pointer;
 		}
 	}
 }

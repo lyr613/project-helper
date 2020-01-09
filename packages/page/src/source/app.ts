@@ -23,6 +23,8 @@ export const app_list$ = new BehaviorSubject<app[]>(load_local())
 /** 查询项目列表 */
 export const app_find$ = new Subject()
 
+export const app_focu$ = new BehaviorSubject<null | app>(null)
+
 /** 正在查询项目列表 */
 export const app_finding$ = new BehaviorSubject(false)
 
