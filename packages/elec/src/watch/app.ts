@@ -23,7 +23,7 @@ export function watch_app() {
                 e.reply('app-find', app_list)
             })
     })
-    /** 大概是windows专用, 打开文件(夹) */
+    /**  打开文件(夹) */
     ipcMain.on('start-dir-or-file', (_, src: string) => {
         if (platform === 'win32') {
             cp.exec(`start ${src}`)
@@ -54,6 +54,21 @@ export function watch_app() {
             cp.exec(` code ${src} `)
         } else {
             cp.exec(` osascript -e ' tell application "Terminal" to do script "cd ${src} && code ."  ' `)
+        }
+    })
+    /** 判断项目具体类型 */
+    ipcMain.on('app-focu-type', (e, src) => {
+        const arr = [
+            [path.join(src, 'src', 'pages.json'), 'uni-wx'], // uni-app小程序
+            [path.join(src, 'src', 'index.less'), 'iview-admin'], // ivew后台管理
+            [path.join(src, '.mvn'), 'java'],
+            [path.join(src, 'node_modules'), 'js'],
+        ]
+        for (const flag_type of arr) {
+            if (fs.existsSync(flag_type[0])) {
+                e.returnValue = flag_type[1]
+                return
+            }
         }
     })
 }
@@ -146,7 +161,7 @@ function map_infor(src: string) {
         name: find_name(),
         previews: find_preview(),
         scripts: find_scripts(),
-        type: get_type(),
+        type: get_type(), // 粗略类型 js / java
         update_time: get_time(),
     }
     return re

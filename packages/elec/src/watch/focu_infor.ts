@@ -7,20 +7,6 @@ import * as sio from '@/qv-io'
 
 const platform = os.platform()
 export function watch_app_focu() {
-    /** 判断项目具体类型 */
-    ipcMain.on('app-focu-type', (e, src) => {
-        const arr = [
-            [path.join(src, 'src', 'pages.json'), 'uni-wx'],
-            [path.join(src, '.mvn'), 'java'],
-            [path.join(src, 'node_modules'), 'js'],
-        ]
-        for (const flag_type of arr) {
-            if (fs.existsSync(flag_type[0])) {
-                e.returnValue = flag_type[1]
-                return
-            }
-        }
-    })
     // 读取uniapp-wx的页面配置
     ipcMain.on('uni-app-wx', (e, src) => {
         try {
