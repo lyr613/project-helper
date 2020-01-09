@@ -4,7 +4,7 @@
     "description": "",
     "main": "build/index.js",
     "scripts": {
-        "preelectron-start": "npx webpack --mode development ",
+        "watch": "npx webpack --mode development --watch",
         "electron-start": " node ./scripts/electron-start.js ",
         "build": "npx webpack --mode production",
         "electron-build": "npx webpack --mode production && npx electron-builder"

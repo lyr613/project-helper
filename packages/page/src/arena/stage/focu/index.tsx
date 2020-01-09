@@ -7,6 +7,7 @@ import { next_router } from '@/function/router'
 import { ipc } from '@/const'
 import { DefaultButton } from 'office-ui-fabric-react'
 import UniWx from './upi-wx'
+import IviewAdmin from './iview-admin'
 
 export default function Focu() {
 	if (!app_focu$.value) {
@@ -46,6 +47,7 @@ function Infor() {
 			<div>{apf.name}</div>
 			<div>类型: {tp}</div>
 			{tp === 'uni-wx' && <UniWx></UniWx>}
+			{tp === 'iview-admin' && <IviewAdmin></IviewAdmin>}
 		</section>
 	)
 }

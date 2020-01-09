@@ -5,7 +5,6 @@ import os from 'os'
 import cp from 'child_process'
 import * as sio from '@/qv-io'
 
-const platform = os.platform()
 export function watch_app_focu() {
     // 读取uniapp-wx的页面配置
     ipcMain.on('uni-app-wx', (e, src) => {
