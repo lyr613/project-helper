@@ -10,8 +10,7 @@ export function watch_iveiw_admin() {
         try {
             const rsrc = path.join(src, 'src', 'router', 'routers.js')
             const txt0 = sio.read_text(rsrc)
-            const txt1 = txt0.split('export default')[1]
-            e.returnValue = txt1
+            e.returnValue = txt0
         } catch (error) {
             e.returnValue = null
         }
