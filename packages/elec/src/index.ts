@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, dialog } from 'electron'
 import { create_option, did_create } from '@/create'
 import { watch } from './watch'
 import { autoUpdater } from 'electron-updater'
@@ -12,7 +12,14 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 let main_window: any
 
 app.once('ready', () => {
-    autoUpdater.autoDownload = true
+    autoUpdater.checkForUpdates()
+    autoUpdater.on('update-available', () => {
+        dialog.showMessageBox({
+            title: '有更新',
+            message: '有更新了, 自动下载',
+        })
+        autoUpdater.downloadUpdate()
+    })
     createWindow()
 })
 
