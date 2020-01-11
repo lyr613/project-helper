@@ -4,6 +4,8 @@ import { map, switchMap } from 'rxjs/operators'
 
 export const filter$ = new BehaviorSubject({
 	type: 'all',
+	// 搜索路径
+	src: '',
 })
 
 /** 过滤后的列表 */
@@ -15,6 +17,12 @@ export const list_filtered$ = app_list$.pipe(
 					.filter(app => {
 						if (opt.type !== 'all') {
 							return app.type === opt.type
+						}
+						if (opt.src) {
+							const regsrc = new RegExp(opt.src.split('').join('.*'))
+							if (!regsrc.test(app.src.toLocaleLowerCase())) {
+								return false
+							}
 						}
 						return true
 					})

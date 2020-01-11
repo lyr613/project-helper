@@ -1,13 +1,14 @@
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
 import s from './s.module.scss'
-import { DefaultButton, ActionButton, PrimaryButton, Dropdown } from 'office-ui-fabric-react'
+import { DefaultButton, ActionButton, PrimaryButton, Dropdown, TextField } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
 import { electron, book_local_helper, ipc } from '@/const'
 import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$, app_focu$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
 import { app_type } from '@/source'
 import { next_router } from '@/function/router'
+import { filter, map } from 'rxjs/operators'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -74,7 +75,13 @@ function Find() {
 
 function Bar() {
 	const li = useObservable(() => app_list$, [])
-	if (!li.length) {
+	const fil = useObservable(() =>
+		filter$.pipe(
+			filter(v => !!v),
+			map(v => ({ ...v })),
+		),
+	)
+	if (!li.length || !fil) {
 		return null
 	}
 	return (
@@ -86,13 +93,33 @@ function Bar() {
 					{ key: 'js', text: 'js' },
 					{ key: 'java', text: 'java' },
 				]}
+				selectedKey={fil.type}
 				onChange={(_, opt) => {
 					const key = (opt?.key as string) ?? 'all'
 					const fil = filter$.value
 					fil.type = key
 					filter$.next(fil)
 				}}
+				styles={{
+					root: {
+						marginRight: '10px',
+						width: '140px',
+					},
+				}}
 			></Dropdown>
+			<TextField
+				label="路径搜索"
+				placeholder="贪婪匹配路径"
+				value={fil.src}
+				onChange={(_, str) => {
+					fil.src = str || ''
+					filter$.next(fil)
+				}}
+				onFocus={() => {
+					fil.src = ''
+					filter$.next(fil)
+				}}
+			></TextField>
 		</div>
 	)
 }
