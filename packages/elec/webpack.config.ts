@@ -1,5 +1,7 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin')
+
 // import { Configuration } from 'webpack'
 
 /**
@@ -12,10 +14,12 @@ const cfg = {
         root: './src/index.ts',
     },
     resolve: {
-        extensions: ['.ts'],
+        extensions: ['.ts', '.js'],
         alias: {
             '@': path.resolve(__dirname, 'src'),
         },
+        modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+        plugins: [new DirectoryNamedWebpackPlugin()],
     },
     output: {
         filename: 'index.js',
