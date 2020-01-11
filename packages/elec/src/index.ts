@@ -20,6 +20,10 @@ app.once('ready', () => {
         })
         autoUpdater.downloadUpdate()
     })
+    autoUpdater.on('update-downloaded', () => {
+        autoUpdater.quitAndInstall()
+        main_window.destroy()
+    })
     createWindow()
 })
 
