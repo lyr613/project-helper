@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import { create_option, did_create } from '@/create'
 import { watch } from './watch'
+import { autoUpdater } from 'electron-updater'
 
 console.log(process.env.NODE_ENV)
 
@@ -10,7 +11,10 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 /** 主窗口 */
 let main_window: any
 
-app.once('ready', createWindow)
+app.once('ready', () => {
+    autoUpdater.autoDownload = true
+    createWindow()
+})
 
 app.on('window-all-closed', function() {
     if (process.platform !== 'darwin') app.quit()

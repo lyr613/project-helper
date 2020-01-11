@@ -1,13 +1,15 @@
 {
     "name": "writer-electron",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "",
     "main": "build/index.js",
     "scripts": {
         "watch": "npx webpack --mode development --watch",
         "electron-start": " node ./scripts/electron-start.js ",
-        "build": "npx webpack --mode production",
-        "electron-build": "npx webpack --mode production && npx electron-builder"
+        "preelectron-build": " npx webpack --mode production ",
+        "electron-build": " npx electron-builder ",
+        "prerelease": " npx webpack --mode production ",
+        "release": " npx cross-env GH_TOKEN=b2f7b552a9aefb56674d4e19edb61c7b62d9fb35 npx electron-builder "
     },
     "keywords": [],
     "author": "",
@@ -19,10 +21,12 @@
         "clean-webpack-plugin": "^3.0.0",
         "electron": "7.1.7",
         "electron-builder": "^21.2.0",
+        "electron-updater": "^4.2.0",
         "ts-loader": "^6.2.1",
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.10"
     },
+    "repository": "https://github.com/lyr613/app-helper",
     "publish": [
         "github"
     ],
