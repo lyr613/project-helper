@@ -1,6 +1,6 @@
 {
     "name": "writer-electron",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "",
     "main": "build/index.js",
     "scripts": {
@@ -23,6 +23,9 @@
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.10"
     },
+    "publish": [
+        "github"
+    ],
     "build": {
         "productName": "soft-app-helper",
         "appId": "org.simulatedgreg.apphelper",
