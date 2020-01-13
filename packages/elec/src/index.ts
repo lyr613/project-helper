@@ -12,6 +12,8 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 let main_window: any
 
 app.once('ready', () => {
+    createWindow()
+
     autoUpdater.checkForUpdates()
     autoUpdater.on('update-available', () => {
         dialog.showMessageBox({
@@ -21,10 +23,16 @@ app.once('ready', () => {
         autoUpdater.downloadUpdate()
     })
     autoUpdater.on('update-downloaded', () => {
+        dialog.showMessageBox({
+            title: '下载完了',
+            message: '自动安装',
+        })
         autoUpdater.quitAndInstall()
         main_window.destroy()
     })
-    createWindow()
+    autoUpdater.on('download-progress', function(progressObj) {
+        main_window.webContents.send('download-progress', progressObj)
+    })
 })
 
 app.on('window-all-closed', function() {
