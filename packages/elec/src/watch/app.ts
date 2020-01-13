@@ -19,6 +19,7 @@ export function watch_app() {
                     return false
                 }
                 const src = res.filePaths[0]
+
                 const app_list = find_list(src, e).map(map_infor)
                 e.reply('app-find', app_list)
             })

@@ -1,15 +1,15 @@
 {
     "name": "writer-electron",
-    "version": "0.1.8",
+    "version": "0.0.1",
     "description": "",
     "main": "build/index.js",
     "scripts": {
-        "watch": "npx webpack --mode development --watch",
+        "watch": " npx webpack --mode development --watch ",
         "electron-start": " node ./scripts/electron-start.js ",
         "preelectron-build": " npx webpack --mode production ",
         "electron-build": " npx electron-builder ",
         "prerelease": " npx webpack --mode production ",
-        "release": " npx cross-env GH_TOKEN=b2f7b552a9aefb56674d4e19edb61c7b62d9fb35 npx electron-builder "
+        "release": " npx cross-env GH_TOKEN=b2f7b552a9aefb56674d4e19edb61c7b62d9fb35 npx electron-builder -wm "
     },
     "keywords": [],
     "author": "",
@@ -44,9 +44,6 @@
             "./build/**",
             "./build-page/**"
         ],
-        "mac": {
-            "target": "dmg"
-        },
         "dmg": {
             "contents": [
                 {
