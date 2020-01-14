@@ -20,8 +20,6 @@ export function watch_iveiw_admin() {
     ipcMain.on('iview-admin-read-index', (e, app_src, paths) => {
         try {
             const src = path.join(app_src, 'src', 'view', ...paths, 'index.vue')
-            console.log(src)
-
             e.returnValue = fs.readFileSync(src, 'utf-8')
         } catch (error) {
             e.returnValue = '读取失败'

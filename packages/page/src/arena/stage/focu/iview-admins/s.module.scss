@@ -5,14 +5,17 @@
 	font-size: 16px;
 	user-select: none;
 	tab-size: 4;
+	.block {
+		margin: 0 0.5vw;
+		overflow-y: auto;
+		box-sizing: border-box;
+		height: 80vh;
+		padding: 10px;
+		background-color: #a5b9d1;
+	}
 }
 .Router {
-	overflow-y: auto;
-	box-sizing: border-box;
 	width: 16vw;
-	height: 80vh;
-	padding: 10px;
-	background-color: #a5b9d1;
 	.line {
 		&:hover {
 			background-color: #72a0d8;
@@ -20,13 +23,16 @@
 	}
 }
 
+.Ctrl {
+	width: 16vw;
+	.splitline {
+		margin: 10px 20px;
+		height: 1px;
+		background-color: rgb(255, 255, 255);
+	}
+}
+
 .Preview {
-	margin: 0 0.5vw;
-	overflow-y: auto;
-	box-sizing: border-box;
 	min-width: 16vw;
-	height: 80vh;
-	padding: 10px;
-	background-color: #a5b9d1;
 	white-space: pre;
 }

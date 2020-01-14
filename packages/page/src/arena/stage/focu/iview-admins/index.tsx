@@ -6,12 +6,14 @@ import { useObservable } from 'rxjs-hooks'
 import { app_focu$, app_list$ } from '@/source'
 import { BehaviorSubject } from 'rxjs'
 import { PrimaryButton } from 'office-ui-fabric-react'
-import { router_find$, router_list$, router_focu$, txt_preview$ } from './subj'
+import { router_find$, router_list$, router_focu$, txt_preview$ } from './subj-router'
+import Ctrl from './ctrl'
 
 export default function IviewAdmin() {
 	return (
 		<div className={s.IviewAdmin}>
 			<Router />
+			<Ctrl />
 			<Preview />
 		</div>
 	)
@@ -27,7 +29,7 @@ function Router() {
 	}, [app])
 
 	return (
-		<div className={s.Router}>
+		<div className={[s.Router, s.block].join(' ')}>
 			{routers.map(rt => (
 				<div
 					className={s.line}
@@ -52,5 +54,5 @@ function Router() {
  */
 function Preview() {
 	const txt = useObservable(() => txt_preview$, '')
-	return <div className={s.Preview}>{txt}</div>
+	return <div className={[s.Preview, s.block].join(' ')}>{txt}</div>
 }
