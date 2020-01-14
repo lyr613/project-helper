@@ -58,6 +58,27 @@
                     "type": "file"
                 }
             ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "perMachine": false,
+            "allowElevation": true,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "runAfterFinish": true,
+            "shortcutName": "app-help"
+        },
+        "win": {
+            "artifactName": "${productName}_setup_${version}.${ext}",
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "ia32"
+                    ]
+                }
+            ]
         }
     }
 }
