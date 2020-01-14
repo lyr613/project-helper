@@ -74,8 +74,10 @@
 			align-items: center;
 		}
 		.imgbox {
-			float: right;
-			height: 100%;
+			position: absolute;
+			right: 10px;
+			top: 5%;
+			height: 90%;
 			.img {
 				height: 100%;
 			}

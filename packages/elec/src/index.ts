@@ -20,7 +20,7 @@ app.once('ready', () => {
         main_window.webContents.send('download-progress', e)
     })
 
-    autoUpdater.checkForUpdates()
+    // autoUpdater.checkForUpdates()
     autoUpdater.autoDownload = true
     autoUpdater.on('update-available', () => {
         dialog.showMessageBox({

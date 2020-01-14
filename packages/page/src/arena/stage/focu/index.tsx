@@ -7,7 +7,7 @@ import { next_router } from '@/function/router'
 import { ipc } from '@/const'
 import { DefaultButton } from 'office-ui-fabric-react'
 import UniWx from './upi-wx'
-import IviewAdmin from './iview-admin'
+import IviewAdmin from './iview-admins'
 
 export default function Focu() {
 	if (!app_focu$.value) {
@@ -28,6 +28,11 @@ function Back() {
 		<DefaultButton
 			onClick={() => {
 				next_router('home')
+			}}
+			styles={{
+				root: {
+					margin: '10px',
+				},
 			}}
 		>
 			返回

@@ -1,0 +1,19 @@
+.IviewAdmin {
+	display: flex;
+	width: 90vw;
+	height: 80vh;
+	font-size: 16px;
+	user-select: none;
+	.Router {
+		box-sizing: border-box;
+		width: 16vw;
+		height: 80vh;
+		padding: 10px;
+		background-color: #a5b9d1;
+		.line {
+			&:hover {
+				background-color: #fff;
+			}
+		}
+	}
+}

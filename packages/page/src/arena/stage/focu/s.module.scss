@@ -3,7 +3,7 @@
 }
 
 .Infor {
-	margin: 20px;
+	margin: 10px;
 }
 
 .UniWx {
@@ -13,20 +13,5 @@
 	.addpage {
 		display: flex;
 		align-items: flex-end;
-	}
-}
-
-.IviewAdmin {
-	font-size: 16px;
-	user-select: none;
-	.Router {
-		white-space: pre;
-		.path {
-			height: 30px;
-			line-height: 30px;
-			&:hover {
-				background-color: rgb(235, 235, 235);
-			}
-		}
 	}
 }
