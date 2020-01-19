@@ -9,7 +9,7 @@
         "preelectron-build": " npx webpack --mode production ",
         "electron-build": " npx electron-builder ",
         "prerelease": " npx webpack --mode production ",
-        "release": " npx cross-env GH_TOKEN=b2f7b552a9aefb56674d4e19edb61c7b62d9fb35 npx electron-builder -wm "
+        "release": " node ./scripts/publish.js "
     },
     "keywords": [],
     "author": "",
@@ -31,7 +31,7 @@
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.10"
     },
-    "repository": "https://github.com/lyr613/app-helper",
+    "repository": "https://github.com/lyr613/project-helper",
     "publish": [
         "github"
     ],
