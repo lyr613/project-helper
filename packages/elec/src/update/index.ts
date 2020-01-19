@@ -4,14 +4,13 @@ import { autoUpdater } from 'electron-updater'
 import path from 'path'
 import fs from 'fs'
 
-const down_page = `https://github.com/lyr613/project-helper/releases`
-
 // const logfile = path.resolve('/Users/liuyiran/Desktop/front/writer', 'a.txt')
 /**
  * 检查更新, 因为现在没签名, 所以直接打开release页
  * @param main_window
  */
 export function update_check(main_window: BrowserWindow) {
+    const down_page = `https://github.com/lyr613/project-helper/releases`
     // fs.writeFileSync(logfile, '开始检查')
     // autoUpdater.checkForUpdates().then((need) => {
     // console.log(need.updateInfo)

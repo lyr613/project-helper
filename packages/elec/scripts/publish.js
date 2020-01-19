@@ -1,7 +1,6 @@
-// 71a54223dd3f9bcccafe226f2db7ff5cc9d4f51d
 const cp = require('child_process')
 
-const d = cp.exec(` cross-env GH_TOKEN=71a54223dd3f9bcccafe226f2db7ff5cc9d4f51d npx electron-builder `)
+const d = cp.exec(` npx cross-env GH_TOKEN=74b7d6fd025e7aaf84977528d987893d51e01bde npx electron-builder `)
 
 const out = d.stdout
 out.on('data', (e) => {
