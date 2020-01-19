@@ -1,5 +1,9 @@
 # 项目小助手
 
+## 预览
+
+![preview](./doc/preview.png)
+
 ## 开发
 
 #### 环境
