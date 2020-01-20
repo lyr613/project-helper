@@ -69,7 +69,7 @@ function AppList() {
 		if (!dom) {
 			return
 		}
-		const ob = Screen$.pipe(debounceTime(1000)).subscribe(sc => {
+		const ob = Screen$.pipe(debounceTime(500)).subscribe(sc => {
 			const w = dom.clientWidth - 10
 			let i = 1
 			let wi = sc.W - 20
@@ -110,12 +110,16 @@ function Item(p: p) {
 	// 处于鼠标悬浮
 	const [hover, set_hover] = useState(false)
 	const [img_i, set_img_i] = useState(0)
+	const appfocu = useObservable(() => app_focu$)
 	return (
 		<div
-			className={[s.one, s.card, hover ? s.hover : ''].join(' ')}
+			className={[s.one, s.card, hover ? s.hover : '', appfocu?.id === app.id ? s.focu : ''].join(' ')}
 			key={app.id}
 			onMouseEnter={() => set_hover(true)}
 			onMouseLeave={() => set_hover(false)}
+			onClick={() => {
+				app_focu$.next(app)
+			}}
 			style={{
 				width: p.w,
 			}}
@@ -147,7 +151,7 @@ function Item(p: p) {
 				{app.name.replace(/^[ #]*/, '')}
 			</div>
 			<div
-				className={s.focu}
+				className={s.parse}
 				onClick={() => {
 					app_focu$.next(app)
 					next_router('focu')
