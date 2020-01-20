@@ -32,23 +32,6 @@ export function did_create(app: Electron.App, win: Electron.BrowserWindow) {
  */
 function set_menu(app: Electron.App, win: Electron.BrowserWindow) {
     const { globalShortcut, Menu } = Electron
-    // 打开控制台
-    globalShortcut.registerAll(['CmdOrCtrl+I'], () => {
-        win.webContents.openDevTools()
-    })
-    // 重载
-    globalShortcut.registerAll(['CmdOrCtrl+R', 'F5'], () => {
-        win.reload()
-    })
-    /** 退出 */
-    globalShortcut.register('CmdOrCtrl+Q', () => {
-        app.quit()
-    })
-    /** 全屏 */
-    globalShortcut.registerAll(['F10', 'CmdOrCtrl+P'], () => {
-        const b = win.isFullScreen()
-        win.setFullScreen(!b)
-    })
 
     Menu.setApplicationMenu(null)
 }

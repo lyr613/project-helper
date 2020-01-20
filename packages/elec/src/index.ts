@@ -28,7 +28,7 @@ function createWindow() {
     main_window = new BrowserWindow(create_option())
     did_create(app, main_window)
 
-    watch()
+    watch(main_window)
 
     main_window.on('closed', function() {
         main_window = null
