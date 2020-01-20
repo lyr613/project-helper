@@ -6,6 +6,8 @@ export const filter$ = new BehaviorSubject({
 	type: 'all',
 	// 搜索路径
 	src: '',
+	// 名称
+	name: '',
 })
 
 /** 过滤后的列表 */
@@ -21,6 +23,12 @@ export const list_filtered$ = app_list$.pipe(
 						if (opt.src) {
 							const regsrc = new RegExp(opt.src.split('').join('.*'))
 							if (!regsrc.test(app.src.toLocaleLowerCase())) {
+								return false
+							}
+						}
+						if (opt.name) {
+							const regsrc = new RegExp(opt.name.split('').join('.*'))
+							if (!regsrc.test(app.name)) {
 								return false
 							}
 						}

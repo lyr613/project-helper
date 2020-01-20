@@ -1,15 +1,15 @@
 // eslint-disable-next-line
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import s from './s.module.scss'
-import { DefaultButton, ActionButton, PrimaryButton, Dropdown, TextField } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
-import { electron, book_local_helper, ipc } from '@/const'
+import { ipc } from '@/const'
 import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$, app_focu$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
 import { app_type } from '@/source'
 import { next_router } from '@/function/router'
-import { filter, map } from 'rxjs/operators'
+import { filter, map, debounceTime } from 'rxjs/operators'
 import { Screen$ } from '@/subscribe'
+import FindBar from './bar'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -21,8 +21,7 @@ export default function Shelf() {
 				<Finding />
 			) : (
 				<>
-					<Find />
-					<Bar />
+					<FindBar />
 					<AppList />
 				</>
 			)}
@@ -30,6 +29,7 @@ export default function Shelf() {
 	)
 }
 
+/** 顶部帮助 */
 function Help() {
 	return (
 		<div className={s.Help}>
@@ -41,6 +41,7 @@ function Help() {
 	)
 }
 
+/** 查找中 */
 function Finding() {
 	const msg = useObservable(() => finding_level$, '')
 	const dir = useObservable(() => finding_dir$, '')
@@ -58,79 +59,18 @@ function Finding() {
 	)
 }
 
-function Find() {
-	return (
-		<PrimaryButton
-			onClick={() => {
-				app_find$.next()
-			}}
-			style={{
-				margin: '10px',
-			}}
-		>
-			查找
-		</PrimaryButton>
-	)
-}
-
-function Bar() {
-	const li = useObservable(() => app_list$, [])
-	const fil = useObservable(() =>
-		filter$.pipe(
-			filter(v => !!v),
-			map(v => ({ ...v })),
-		),
-	)
-	if (!li.length || !fil) {
-		return null
-	}
-	return (
-		<div className={s.Bar}>
-			<Dropdown
-				label="项目类型"
-				options={[
-					{ key: 'all', text: '所有', selected: true },
-					{ key: 'js', text: 'js' },
-					{ key: 'java', text: 'java' },
-				]}
-				selectedKey={fil.type}
-				onChange={(_, opt) => {
-					const key = (opt?.key as string) ?? 'all'
-					const fil = filter$.value
-					fil.type = key
-					filter$.next(fil)
-				}}
-				styles={{
-					root: {
-						marginRight: '10px',
-						width: '140px',
-					},
-				}}
-			></Dropdown>
-			<TextField
-				label="路径搜索"
-				placeholder="贪婪匹配路径"
-				value={fil.src}
-				onChange={(_, str) => {
-					fil.src = str || ''
-					filter$.next(fil)
-				}}
-				onFocus={() => {
-					fil.src = ''
-					filter$.next(fil)
-				}}
-			></TextField>
-		</div>
-	)
-}
-
 function AppList() {
 	const list = useObservable(() => list_filtered$, [])
+	const boxdom = useRef<null | HTMLDivElement>(null)
 	const [one_w, set_one_w] = useState(0)
 	useEffect(() => {
 		// 动态计算宽度
-		const ob = Screen$.subscribe(sc => {
-			const w = sc.W - 10 - 20
+		const dom = boxdom.current
+		if (!dom) {
+			return
+		}
+		const ob = Screen$.pipe(debounceTime(1000)).subscribe(sc => {
+			const w = dom.clientWidth - 10
 			let i = 1
 			let wi = sc.W - 20
 			while (wi > 300) {
@@ -140,7 +80,7 @@ function AppList() {
 			set_one_w(wi - 10)
 		})
 		return () => ob.unsubscribe()
-	}, [])
+	}, [list])
 	if (!list.length) {
 		return (
 			<div
@@ -153,7 +93,7 @@ function AppList() {
 		)
 	}
 	return (
-		<div className={s.AppList}>
+		<div className={s.AppList} ref={boxdom}>
 			{list.map(app => (
 				<Item app={app} key={app.id} w={one_w} />
 			))}
@@ -167,7 +107,9 @@ interface p {
 }
 function Item(p: p) {
 	const { app } = p
+	// 处于鼠标悬浮
 	const [hover, set_hover] = useState(false)
+	const [img_i, set_img_i] = useState(0)
 	return (
 		<div
 			className={[s.one, s.card, hover ? s.hover : ''].join(' ')}
@@ -179,10 +121,13 @@ function Item(p: p) {
 			}}
 		>
 			{app.previews.length ? (
-				<div className={s.imgbox}>
-					{app.previews.map(img => (
-						<img src={img} key={img} className={s.img} alt="" />
-					))}
+				<div
+					className={s.imgbox}
+					onClick={() => {
+						set_img_i((img_i + 1) % app.previews.length)
+					}}
+				>
+					<img src={app.previews[img_i]} className={s.img} alt="" />
 				</div>
 			) : (
 				<div className={s.src}>{app.src}</div>

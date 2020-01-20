@@ -18,12 +18,21 @@ $chei: 150px;
 		}
 	}
 }
-.Bar {
+.FindBar {
 	display: flex;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 10px;
+	padding: 0 10px;
 	align-items: flex-end;
+	justify-content: space-between;
+	.FindParam {
+		display: flex;
+		align-items: flex-end;
+		.item {
+			margin: 0 0 0 10px;
+			width: 140px;
+		}
+	}
 }
 
 .AppList {
