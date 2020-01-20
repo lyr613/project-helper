@@ -8,9 +8,13 @@ $chei: 150px;
 }
 
 .Help {
-	margin: 10px;
+	margin: 10px 0;
 	.line {
 		margin: 0;
+		box-sizing: border-box;
+		width: min-content;
+		padding: 0 10px;
+		white-space: nowrap;
 		line-height: 26px;
 		font-size: 16px;
 		&:hover {
@@ -20,6 +24,7 @@ $chei: 150px;
 }
 .FindBar {
 	display: flex;
+	margin-top: -30px;
 	box-sizing: border-box;
 	width: 100%;
 	padding: 0 10px;
