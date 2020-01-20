@@ -71,6 +71,7 @@ export function watch_app() {
                 return
             }
         }
+        e.returnValue = '未识别'
     })
 }
 
