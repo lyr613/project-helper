@@ -1,4 +1,4 @@
-import { ipcMain, dialog } from 'electron'
+import { ipcMain, dialog, remote, shell } from 'electron'
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
@@ -23,6 +23,10 @@ export function watch_app() {
                 const app_list = find_list(src, e).map(map_infor)
                 e.reply('app-find', app_list)
             })
+    })
+    /** 打開項目 */
+    ipcMain.on('open-project', (_, src: string) => {
+        shell.showItemInFolder(src)
     })
     /**  打开文件(夹) */
     ipcMain.on('start-dir-or-file', (_, src: string) => {

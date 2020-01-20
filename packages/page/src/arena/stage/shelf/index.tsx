@@ -144,7 +144,7 @@ function Item(p: p) {
 					if (e.ctrlKey || e.metaKey) {
 						ipc().send('code-it', app.src)
 					} else {
-						ipc().send('start-dir-or-file', app.src)
+						ipc().send('open-project', app.src)
 					}
 				}}
 			>
