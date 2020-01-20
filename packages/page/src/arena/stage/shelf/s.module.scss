@@ -31,14 +31,6 @@
 	padding: 0 0 10px;
 
 	.one {
-		display: inline-block;
-		vertical-align: top;
-		position: relative;
-		margin: 10px 0 0 10px;
-		overflow: hidden;
-		box-sizing: border-box;
-		padding: 10px;
-		white-space: nowrap;
 		.left {
 			display: inline-block;
 			vertical-align: top;
@@ -64,108 +56,75 @@
 			}
 		}
 	}
-	.list {
-		width: 100%;
-		height: 200px;
-		background-color: #a5b9d1;
-
-		.line {
-			line-height: 36px;
-			align-items: center;
-		}
-		.imgbox {
-			position: absolute;
-			right: 10px;
-			top: 5%;
-			height: 90%;
-			.img {
-				height: 100%;
-			}
-		}
-	}
 	.card {
-		display: inline-flex;
-		width: calc(33.33% - 7px);
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+		margin: 10px 0 0 10px;
+		overflow: hidden;
+		box-sizing: border-box;
 		height: 120px;
 		background-color: #a5b9d1;
-		flex-direction: row-reverse;
-		transition: all 0.3s linear;
+		user-select: none;
 		&:hover {
-			background-color: #8dacd3;
-		}
-		.left {
-			position: absolute;
-			left: 10px;
-			top: 10px;
-			width: 80%;
-			white-space: pre-line;
-
-			.line {
-				display: none;
-				line-height: 26px;
-				.label {
-					display: block;
-					color: rgb(77, 77, 77);
-				}
-				.value,
-				.canclk {
-					padding-left: 20px;
-				}
-			}
-			.project {
-				display: block;
-			}
+			outline: 1px solid #66ccff;
 		}
 		.imgbox {
 			overflow: hidden;
-			height: 100%;
+			box-sizing: border-box;
+			width: 100%;
+			height: 90px;
+			padding: 10px;
 			background-color: #a5b9d1;
+			text-align: center;
 
 			.img {
 				height: 100%;
 				opacity: 0.5;
 			}
 		}
+		.src {
+			box-sizing: border-box;
+			width: 100%;
+			height: 90px;
+			padding: 10px;
+			font-size: 16px;
+			color: gray;
+		}
+		.name {
+			height: 30px;
+			line-height: 30px;
+			background-color: #8dacd3;
+			text-align: center;
+			color: rgb(0, 0, 0);
+			font-size: 16px;
+			cursor: pointer;
+			&:hover {
+				background-color: #75a0d4;
+			}
+		}
+
 		.focu {
 			display: none;
 		}
 	}
 	.hover {
-		.left {
-			position: unset;
-			width: 100%;
-			.line {
-				display: block;
-				white-space: nowrap;
-				.label {
-					display: inline;
-				}
-				.value {
-					display: inline-block;
-					vertical-align: top;
-					padding: 0;
-					white-space: pre-line;
-				}
-				.canclk {
-					padding: 0;
-				}
-			}
-		}
-		.imgbox {
-			display: none;
+		.src {
+			color: black;
 		}
 		.focu {
 			display: block;
 			position: absolute;
-			right: 10px;
-			top: 10px;
-			background-color: rgba(255, 255, 255, 0.1);
+			right: 0;
+			top: 0;
+			padding: 5px 10px;
+			background-color: rgb(255, 255, 255);
 			font-size: 16px;
-			color: blue;
-			user-select: none;
+			color: #000000;
 			cursor: pointer;
+
 			&:hover {
-				background-color: rgb(255, 255, 255);
+				background-color: #8dacd3;
 			}
 		}
 	}

@@ -36,8 +36,7 @@ function Help() {
 			<p className={s.line}>根据含有.git的查找</p>
 			<p className={s.line}>readme.md的第一行读取为项目名</p>
 			<p className={s.line}>doc下所有preview\.*.(jpg|png)读取为预览图</p>
-			<p className={s.line}>script下读取脚本.(js|sh|py), 基于app路径运行</p>
-			<p className={s.line}>点击路径打开资源管理器, ctrl点击用vscode打开项目</p>
+			<p className={s.line}>点击项目名打开资源管理器, ctrl点击用vscode打开项目</p>
 		</div>
 	)
 }
@@ -129,6 +128,7 @@ function AppList() {
 	const list = useObservable(() => list_filtered$, [])
 	const [one_w, set_one_w] = useState(0)
 	useEffect(() => {
+		// 动态计算宽度
 		const ob = Screen$.subscribe(sc => {
 			const w = sc.W - 10 - 20
 			let i = 1
@@ -139,7 +139,7 @@ function AppList() {
 			}
 			set_one_w(wi - 10)
 		})
-		return ob.unsubscribe
+		return () => ob.unsubscribe()
 	}, [])
 	if (!list.length) {
 		return (
@@ -155,7 +155,7 @@ function AppList() {
 	return (
 		<div className={s.AppList}>
 			{list.map(app => (
-				<Item app={app} key={app.id} w={one_w} be_card={list.length > 10} />
+				<Item app={app} key={app.id} w={one_w} />
 			))}
 		</div>
 	)
@@ -163,11 +163,10 @@ function AppList() {
 
 interface p {
 	app: app_type
-	be_card: boolean
 	w: number
 }
 function Item(p: p) {
-	const { app, be_card } = p
+	const { app } = p
 	const [hover, set_hover] = useState(false)
 	return (
 		<div
@@ -179,51 +178,27 @@ function Item(p: p) {
 				width: p.w,
 			}}
 		>
-			<div className={s.left}>
-				<div className={[s.line, s.project].join(' ')}>
-					<span className={s.label}>项目</span>
-					<span className={s.value}>{app.name}</span>
+			{app.previews.length ? (
+				<div className={s.imgbox}>
+					{app.previews.map(img => (
+						<img src={img} key={img} className={s.img} alt="" />
+					))}
 				</div>
-				<div className={[s.line, s.project].join(' ')} title={app.src}>
-					<span className={s.label}>地址</span>
-					<span
-						className={s.canclk}
-						onClick={e => {
-							e.persist()
-							if (e.ctrlKey || e.metaKey) {
-								ipc().send('code-it', app.src)
-							} else {
-								ipc().send('start-dir-or-file', app.src)
-							}
-						}}
-					>
-						{app.src
-							.split(/[\\/]/)
-							.reverse()
-							.map((ss, i) => (i < 3 ? ss : '...'))
-							.reverse()
-							.join('/')}
-					</span>
-				</div>
-				<div className={s.line}>
-					<span className={s.label}>脚本</span>
-					<div className={s.value}>
-						{app.scripts.map(scpt => (
-							<span
-								key={scpt}
-								className={s.canclk}
-								onClick={() => {
-									ipc().send('run-script', app.src, scpt)
-								}}
-								style={{
-									padding: '0 10px 0 0',
-								}}
-							>
-								{scpt.split(/[\\/]/).reverse()[0]}
-							</span>
-						))}
-					</div>
-				</div>
+			) : (
+				<div className={s.src}>{app.src}</div>
+			)}
+			<div
+				className={s.name}
+				onClick={e => {
+					e.persist()
+					if (e.ctrlKey || e.metaKey) {
+						ipc().send('code-it', app.src)
+					} else {
+						ipc().send('start-dir-or-file', app.src)
+					}
+				}}
+			>
+				{app.name.replace(/^[ #]*/, '')}
 			</div>
 			<div
 				className={s.focu}
@@ -233,11 +208,6 @@ function Item(p: p) {
 				}}
 			>
 				解析
-			</div>
-			<div className={s.imgbox}>
-				{app.previews.map(img => (
-					<img src={img} key={img} className={s.img} alt="" />
-				))}
 			</div>
 		</div>
 	)
