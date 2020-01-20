@@ -9,6 +9,7 @@ import { list_filtered$, filter$ } from './subj'
 import { app_type } from '@/source'
 import { next_router } from '@/function/router'
 import { filter, map } from 'rxjs/operators'
+import { Screen$ } from '@/subscribe'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -126,6 +127,20 @@ function Bar() {
 
 function AppList() {
 	const list = useObservable(() => list_filtered$, [])
+	const [one_w, set_one_w] = useState(0)
+	useEffect(() => {
+		const ob = Screen$.subscribe(sc => {
+			const w = sc.W - 10 - 20
+			let i = 1
+			let wi = sc.W - 20
+			while (wi > 300) {
+				i++
+				wi = (w / i) | 0
+			}
+			set_one_w(wi - 10)
+		})
+		return ob.unsubscribe
+	}, [])
 	if (!list.length) {
 		return (
 			<div
@@ -140,7 +155,7 @@ function AppList() {
 	return (
 		<div className={s.AppList}>
 			{list.map(app => (
-				<Item app={app} key={app.id} be_card={list.length > 10} />
+				<Item app={app} key={app.id} w={one_w} be_card={list.length > 10} />
 			))}
 		</div>
 	)
@@ -149,16 +164,20 @@ function AppList() {
 interface p {
 	app: app_type
 	be_card: boolean
+	w: number
 }
 function Item(p: p) {
 	const { app, be_card } = p
 	const [hover, set_hover] = useState(false)
 	return (
 		<div
-			className={[s.one, be_card ? s.card : s.list, hover ? s.hover : ''].join(' ')}
+			className={[s.one, s.card, hover ? s.hover : ''].join(' ')}
 			key={app.id}
 			onMouseEnter={() => set_hover(true)}
 			onMouseLeave={() => set_hover(false)}
+			style={{
+				width: p.w,
+			}}
 		>
 			<div className={s.left}>
 				<div className={[s.line, s.project].join(' ')}>
