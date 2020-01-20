@@ -189,6 +189,7 @@ function Item(p: p) {
 			)}
 			<div
 				className={s.name}
+				title={app.name}
 				onClick={e => {
 					e.persist()
 					if (e.ctrlKey || e.metaKey) {
