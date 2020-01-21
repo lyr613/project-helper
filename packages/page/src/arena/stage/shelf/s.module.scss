@@ -8,7 +8,7 @@ $chei: 150px;
 }
 
 .Help {
-	margin: 10px 0;
+	margin: 0 0 10px 0;
 	.line {
 		margin: 0;
 		box-sizing: border-box;
@@ -24,7 +24,6 @@ $chei: 150px;
 }
 .FindBar {
 	display: flex;
-	margin-top: -30px;
 	box-sizing: border-box;
 	width: 100%;
 	padding: 0 10px;
@@ -32,6 +31,7 @@ $chei: 150px;
 	justify-content: space-between;
 	.FindParam {
 		display: flex;
+		margin-top: -30px;
 		align-items: flex-end;
 		.item {
 			margin: 0 0 0 10px;

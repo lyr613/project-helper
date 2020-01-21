@@ -85,6 +85,7 @@ function AppList() {
 		return (
 			<div
 				style={{
+					margin: '10px',
 					fontSize: '16px',
 				}}
 			>
