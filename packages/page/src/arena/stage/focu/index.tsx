@@ -8,6 +8,7 @@ import { ipc } from '@/const'
 import { DefaultButton } from 'office-ui-fabric-react'
 import UniWx from './upi-wx'
 import IviewAdmin from './iview-admins'
+import YarnSpace from './yarn-space'
 
 export default function Focu() {
 	if (!app_focu$.value) {
@@ -23,6 +24,7 @@ export default function Focu() {
 	)
 }
 
+/** 返回列表页 */
 function Back() {
 	return (
 		<DefaultButton
@@ -53,6 +55,7 @@ function Infor() {
 			<div>类型: {tp}</div>
 			{tp === 'uni-wx' && <UniWx></UniWx>}
 			{tp === 'iview-admin' && <IviewAdmin></IviewAdmin>}
+			{tp === 'yarn-workspace' && <YarnSpace />}
 		</section>
 	)
 }

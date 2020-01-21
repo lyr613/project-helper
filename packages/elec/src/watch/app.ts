@@ -1,6 +1,6 @@
 import { ipcMain, dialog, remote, shell } from 'electron'
 import path from 'path'
-import fs from 'fs'
+import fs from 'fs-extra'
 import os from 'os'
 import cp from 'child_process'
 import * as sio from '@/qv-io'
@@ -63,6 +63,12 @@ export function watch_app() {
     })
     /** 判断项目具体类型 */
     ipcMain.on('app-focu-type', (e, src) => {
+        if (check_yarn_workspace()) {
+            e.returnValue = 'yarn-workspace'
+            return
+        }
+
+        // 简单的, 监测某个文件存在
         const arr = [
             [path.join(src, 'src', 'pages.json'), 'uni-wx'], // uni-app小程序
             [path.join(src, 'src', 'index.less'), 'iview-admin'], // ivew后台管理
@@ -76,6 +82,16 @@ export function watch_app() {
             }
         }
         e.returnValue = '未识别'
+        /** 检查是否是yarn workspace */
+        function check_yarn_workspace() {
+            try {
+                const fi = path.join(src, 'package.json')
+                const jsn = fs.readJSONSync(fi)
+                return Boolean(jsn.workspaces)
+            } catch (error) {
+                return false
+            }
+        }
     })
 }
 
