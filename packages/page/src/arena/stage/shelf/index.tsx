@@ -10,6 +10,7 @@ import { next_router } from '@/function/router'
 import { filter, map, debounceTime } from 'rxjs/operators'
 import { Screen$ } from '@/subscribe'
 import FindBar from './bar'
+import { ActionButton } from 'office-ui-fabric-react'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -31,12 +32,26 @@ export default function Shelf() {
 
 /** 顶部帮助 */
 function Help() {
+	const [showd, set_showd] = useState(false)
 	return (
 		<div className={s.Help}>
-			<p className={s.line}>根据含有.git的查找</p>
-			<p className={s.line}>readme.md的第一行读取为项目名</p>
-			<p className={s.line}>doc下所有preview\.*.(jpg|png)读取为预览图</p>
-			<p className={s.line}>点击项目名打开资源管理器, ctrl点击用vscode打开项目</p>
+			<ActionButton
+				iconProps={{ iconName: showd ? 'CaretSolidDown' : 'CaretSolidRight' }}
+				onClick={() => {
+					set_showd(!showd)
+				}}
+			>
+				帮助
+			</ActionButton>
+
+			{showd && (
+				<>
+					<p className={s.line}>根据含有.git的查找</p>
+					<p className={s.line}>readme.md的第一行读取为项目名</p>
+					<p className={s.line}>doc下所有preview.*\.(jpg|png)读取为预览图</p>
+					<p className={s.line}>点击项目名打开资源管理器, ctrl点击用vscode打开项目</p>
+				</>
+			)}
 		</div>
 	)
 }

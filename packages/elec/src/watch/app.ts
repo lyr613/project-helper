@@ -206,7 +206,7 @@ function map_infor(src: string) {
             return []
         }
         const docs = fs.readdirSync(path.join(src, docdir))
-        const imgs = docs.filter((na) => /preview.*.(png|jpg)$/.test(na))
+        const imgs = docs.filter((na) => /preview.*\.(png|jpg)$/.test(na))
         return imgs.map((img) => path.join(src, docdir, img))
     }
     function find_scripts(): string[] {
