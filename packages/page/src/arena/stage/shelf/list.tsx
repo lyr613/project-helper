@@ -62,7 +62,7 @@ export default function ProjectList() {
 		if (!dom) {
 			return
 		}
-		const ob = Screen$.pipe(debounceTime(500)).subscribe(sc => {
+		const ob = Screen$.pipe(debounceTime(100)).subscribe(sc => {
 			const w = dom.clientWidth - 10
 			let i = 1
 			let wi = sc.W - 20
