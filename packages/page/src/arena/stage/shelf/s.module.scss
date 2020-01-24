@@ -90,10 +90,6 @@ $chei: 150px;
 			text-align: center;
 			color: rgb(0, 0, 0);
 			font-size: 16px;
-			cursor: pointer;
-			&:hover {
-				background-color: #75a0d4;
-			}
 		}
 
 		.focu {
@@ -122,5 +118,50 @@ $chei: 150px;
 	.focu {
 		outline: 2px solid #f00000;
 		outline-offset: -1px;
+	}
+	.tools {
+		display: flex;
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		background-color: #8dacd3;
+		align-items: center;
+		.item {
+			flex-grow: 1;
+			text-align: center;
+			font-size: 14px;
+			cursor: pointer;
+			&:hover {
+				background-color: #709fda;
+			}
+		}
+		.itemf {
+			background-color: #709fda;
+		}
+	}
+	.extend {
+		position: absolute;
+		left: 0;
+		top: 0;
+		box-sizing: border-box;
+		width: 100%;
+		height: 120px;
+		padding: 10px;
+		background-color: #a5b9d1;
+		font-size: 14px;
+	}
+	.TheInfor {
+		.line {
+			text-indent: 20px;
+			color: #ee0000;
+		}
+	}
+	.ThePreview {
+		.img {
+			width: 100%;
+		}
+	}
+	.TheScripts {
+		overflow-y: auto;
 	}
 }
