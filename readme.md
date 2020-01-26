@@ -14,12 +14,7 @@
 #### 安装依赖
 
 ```
-// 全局 ,先安装这个环境, 不是深度开发不需要
-yarn global add lerna
-```
-
-```
-yarn -W // 顶层的依赖包, 上面的命令不自动安装, 需要手动安装
+yarn -W // 会自动安装顶层和各项目的依赖包
 ```
 
 #### 启动
@@ -63,8 +58,9 @@ yarn config set registry https://registry.npm.taobao.org -g
 yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
 ```
 
-## 在工作区顶层安装依赖
+## 在工作区安装依赖
 
 ```
-yarn add some -W // 需要-W
+yarn add some -W // 顶层需要-W
+// 子项目直接yarn add即可, node_modules文件会放到顶层
 ```
