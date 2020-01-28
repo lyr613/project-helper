@@ -4,10 +4,11 @@ import fs from 'fs-extra'
 import os from 'os'
 import cp from 'child_process'
 import * as sio from '@/qv-io'
+import { CONSTS } from '@/const'
 
 const platform = os.platform()
 export function watch_app() {
-    /** 加载顶层 */
+    /** 查找所有含.git的项目 */
     ipcMain.on('app-find', (e) => {
         dialog
             .showOpenDialog({
@@ -20,8 +21,23 @@ export function watch_app() {
                 }
                 const src = res.filePaths[0]
 
-                const app_list = find_list(src, e).map(map_infor)
-                e.reply('app-find', app_list)
+                const fsrc = path.resolve(CONSTS.app_path, 'trycp.js')
+                if (fs.existsSync(fsrc)) {
+                    const cd = cp.fork(fsrc)
+                    cd.on('message', (msg) => {
+                        if (Array.isArray(msg)) {
+                            const app_list = msg.map(map_infor)
+                            e.reply('app-find', app_list)
+                        } else {
+                            e.reply('finding-dir', msg)
+                        }
+                    })
+                    cd.send(src)
+                } else {
+                    console.log('不')
+                }
+
+                //
             })
     })
     /** 打開項目 */
@@ -103,16 +119,16 @@ function find_list(src: string, e: Electron.IpcMainEvent) {
         'System',
         'build',
         'Program Files',
-        '.asar',
-        '.sys',
+        '\\.asar',
+        '\\.sys',
         'IntelOptaneData',
-        '.vscode',
-        '.idea',
+        '\\.vscode',
+        '\\.idea',
         'node_modules',
-        '.mvn',
-        '.npm',
-        '.bash',
-        '.app',
+        '\\.mvn',
+        '\\.npm',
+        '\\.bash',
+        '\\.app',
     ]
     // 碰到这些添加到结果里
     const find_flags = ['.git']

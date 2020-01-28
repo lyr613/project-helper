@@ -1,7 +1,7 @@
 import path from 'path'
 import url from 'url'
 import Electron from 'electron'
-import { CONST } from '@/const'
+import { CONSTS } from '@/const'
 
 export function create_option() {
     return {
@@ -11,7 +11,7 @@ export function create_option() {
         autoHideMenuBar: true,
         webPreferences: {
             /** 让网页获取electorn对象 */
-            preload: path.resolve(CONST.app_path, 'pre-load.js'),
+            preload: path.resolve(CONSTS.app_path, 'pre-load.js'),
             /** 查看本地图片 */
             webSecurity: false,
         },
@@ -47,7 +47,7 @@ function load_page(win: Electron.BrowserWindow) {
     } else {
         win.loadURL(
             url.format({
-                pathname: path.resolve(CONST.app_path, 'build-page', 'index.html'),
+                pathname: path.resolve(CONSTS.app_path, 'build-page', 'index.html'),
                 protocol: 'file:',
                 slashes: true,
             }),

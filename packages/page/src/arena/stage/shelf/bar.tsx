@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import s from './s.module.scss'
 import { DefaultButton, ActionButton, PrimaryButton, Dropdown, TextField } from 'office-ui-fabric-react'
 import { useObservable } from 'rxjs-hooks'
-import { app_list$, app_find$, app_finding$, finding_level$, finding_dir$, app_focu$ } from '@/source/app'
+import { app_list$, app_find$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
 import { filter, map, debounceTime } from 'rxjs/operators'
 

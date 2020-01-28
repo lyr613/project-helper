@@ -5,6 +5,7 @@ import os from 'os'
 import cp from 'child_process'
 import * as sio from '@/qv-io'
 
+// iview admin
 export function watch_iveiw_admin() {
     // 读取路由
     ipcMain.on('iveiwadmin-router-find', (e, src) => {

@@ -6,6 +6,7 @@ import { app_finding$, finding_level$, finding_dir$, app_focu$ } from '@/source/
 import FindBar from './bar'
 import { ActionButton } from 'office-ui-fabric-react'
 import ProjectList from './list'
+import { debounceTime, throttleTime } from 'rxjs/operators'
 
 /** 项目列表 */
 export default function Shelf() {
@@ -42,6 +43,10 @@ function Help() {
 			{showd && (
 				<>
 					<p className={s.line}>根据含有.git的查找</p>
+					<p className={s.line}>
+						文件夹名字过滤: 'System', 'build', 'Program Files', 'IntelOptaneData', 'node_modules',
+						'Application Support', 'Caches', 'Application Scripts', 'var', 'Volumes', 'Homebrew',
+					</p>
 					<p className={s.line}>readme.md的第一行读取为项目名</p>
 					<p className={s.line}>doc下所有preview.*\.(jpg|png)读取为预览图</p>
 					<p className={s.line}>点击项目名打开资源管理器, ctrl点击用vscode打开项目</p>
@@ -54,7 +59,7 @@ function Help() {
 /** 查找中 */
 function Finding() {
 	const msg = useObservable(() => finding_level$, '')
-	const dir = useObservable(() => finding_dir$, '')
+	const dir = useObservable(() => finding_dir$.pipe(throttleTime(200)), '')
 	return (
 		<div
 			className={s.Finding}

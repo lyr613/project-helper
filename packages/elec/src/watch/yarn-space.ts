@@ -5,6 +5,7 @@ import os from 'os'
 import cp from 'child_process'
 import * as sio from '@/qv-io'
 
+// yarn workspace
 export function watch_yarn_space() {
     // 读取路由
     ipcMain.on('yarnspace-packages', (e, src) => {
