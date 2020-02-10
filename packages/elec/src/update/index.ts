@@ -21,7 +21,7 @@ export function update_check(main_window: BrowserWindow) {
         dialog
             .showMessageBox(main_window, {
                 title: '有更新',
-                message: String(up.releaseNotes).replace(/<.*>/g, ''),
+                message: String(up.releaseNotes).replace(/<[a-z/]>/g, ''),
                 buttons: ['打开下载窗口', '从系统浏览器打开', '忽略'],
             })
             .then((res) => {
