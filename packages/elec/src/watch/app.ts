@@ -74,7 +74,7 @@ export function watch_app() {
         if (platform === 'win32') {
             cp.exec(` code ${src} `)
         } else {
-            cp.exec(` osascript -e ' tell application "Terminal" to do script "cd ${src} && code ."  ' `)
+            cp.exec(` open -a "Visual Studio Code" "${src}" `)
         }
     })
     /** 判断项目具体类型 */
