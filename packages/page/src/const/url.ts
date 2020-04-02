@@ -7,8 +7,8 @@ function get_server() {
 	return ['localhost:9090', '/api']
 }
 const [ServerHost, ServerProject] = get_server()
-export {ServerHost}
-export {ServerProject}
+export { ServerHost }
+export { ServerProject }
 /** 后台api请求公共前缀 */
 export const ServerBaseurl = `http://${ServerHost}${ServerProject}/`
 /** websocket请求前缀 */

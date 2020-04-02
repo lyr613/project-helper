@@ -44,7 +44,7 @@
         "files": [
             "./*",
             "./build/**",
-            "./build-page/**"
+            "./qosft-app-helper-page/**"
         ],
         "dmg": {
             "contents": [

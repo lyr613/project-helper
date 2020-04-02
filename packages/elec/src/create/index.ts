@@ -45,12 +45,6 @@ function load_page(win: Electron.BrowserWindow) {
         // 开发
         win.loadURL('http://localhost:7099')
     } else {
-        win.loadURL(
-            url.format({
-                pathname: path.resolve(CONSTS.app_path, 'build-page', 'index.html'),
-                protocol: 'file:',
-                slashes: true,
-            }),
-        )
+        win.loadFile(path.resolve(CONSTS.app_path, 'qosft-app-helper-page', 'index.html'))
     }
 }

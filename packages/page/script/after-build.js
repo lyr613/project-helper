@@ -1,42 +1,22 @@
 const cp = require('child_process')
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 
-const project = 'build-page'
+const project = 'qosft-app-helper-page'
 
-const root = path.resolve('.', '..')
-const self = path.resolve('.')
-const elec = path.resolve(root, 'elec')
+const root = path.resolve(__dirname, '..', '..')
+const self = path.resolve(__dirname, '..', project)
+const elec = path.resolve(root, 'elec', project)
 console.log(self)
 
-// if (fs.existsSync(path.join(elec, project))) {
-// 	cp.execSync(`cd ${elec} && rm -rf ${project}`)
-// }
-// fs.renameSync('./build', project)
-// cp.execSync(`scp  ${project} ${elec}`)
-
-if (fs.existsSync(path.join(self, project))) {
-	try {
-		cp.execSync(`cd ${self} && rm -rf ${project}`)
-	} catch (error) {
-		cp.execSync(`cd ${self} && rmdir /s/q ${project}`)
-	}
+if (fs.existsSync(elec)) {
+	fs.emptyDirSync(elec)
+	fs.removeSync(elec)
 }
-if (fs.existsSync(path.join(elec, project))) {
-	try {
-		cp.execSync(`cd ${elec} && rm -rf ${project}`)
-	} catch (error) {
-		cp.execSync(`cd ${elec} && rmdir /s/q ${project}`)
-	}
+if (fs.existsSync(self)) {
+	fs.emptyDirSync(self)
+	fs.removeSync(self)
 }
 
 fs.renameSync('./build', project)
-cp.execSync(`scp -r  ${project} ${elec}`)
-
-if (fs.existsSync(path.join(self, project))) {
-	try {
-		cp.execSync(`cd ${self} && rm -rf ${project}`)
-	} catch (error) {
-		cp.execSync(`cd ${self} && rmdir /s/q ${project}`)
-	}
-}
+cp.execSync(`scp -r ${project} ${elec}`)
