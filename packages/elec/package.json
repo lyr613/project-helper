@@ -1,5 +1,5 @@
 {
-    "name": "writer-electron",
+    "name": "app-helper-electron",
     "version": "0.1.4",
     "description": "",
     "main": "build/index.js",
