@@ -13,7 +13,7 @@ let main_window: BrowserWindow | null
 
 app.once('ready', () => {
     createWindow()
-    update_check(main_window!)
+    // update_check(main_window!)
 })
 
 app.on('window-all-closed', function() {

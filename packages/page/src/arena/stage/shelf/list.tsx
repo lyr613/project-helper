@@ -181,21 +181,30 @@ function TheInfor(p: p) {
 function TheOpen(p: p) {
 	return (
 		<div className={[s.extend, s.TheOpen].join(' ')}>
-			<ActionButton
+			<p
+				className={s.openbtn}
 				onClick={() => {
 					ipc().send('open-project', p.app.src)
 				}}
 			>
 				打开资源管理器
-			</ActionButton>
-			<br />
-			<ActionButton
+			</p>
+			<p
+				className={s.openbtn}
+				onClick={() => {
+					ipc().send('command-line', p.app.src)
+				}}
+			>
+				打开命令行
+			</p>
+			<p
+				className={s.openbtn}
 				onClick={() => {
 					ipc().send('code-it', p.app.src)
 				}}
 			>
 				用vscode打开
-			</ActionButton>
+			</p>
 		</div>
 	)
 }

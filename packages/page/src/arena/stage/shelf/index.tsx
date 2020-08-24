@@ -59,7 +59,7 @@ function Help() {
 /** 查找中 */
 function Finding() {
 	const msg = useObservable(() => finding_level$, '')
-	const dir = useObservable(() => finding_dir$.pipe(throttleTime(200)), '')
+	const dir = useObservable(() => finding_dir$.pipe(throttleTime(20)), '')
 	return (
 		<div
 			className={s.Finding}

@@ -52,6 +52,12 @@ export function watch_app() {
             cp.exec(`open ${src}`)
         }
     })
+    /** 打开命令行 */
+    ipcMain.on('command-line', (_, src: string) => {
+        if (platform === 'win32') {
+            cp.exec(`cd ${src} && start cmd`)
+        }
+    })
     /**
      * 进入项目并执行脚本
      */
