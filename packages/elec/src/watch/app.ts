@@ -55,7 +55,9 @@ export function watch_app() {
     /** 打开命令行 */
     ipcMain.on('command-line', (_, src: string) => {
         if (platform === 'win32') {
-            cp.exec(`start cmd.exe /K cd ${src}`)
+            cp.exec(`start cmd /k`, {
+                cwd: src,
+            })
         }
     })
     /**
