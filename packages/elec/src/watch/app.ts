@@ -55,7 +55,7 @@ export function watch_app() {
     /** 打开命令行 */
     ipcMain.on('command-line', (_, src: string) => {
         if (platform === 'win32') {
-            cp.exec(`cd ${src} && start cmd`)
+            cp.exec(`start cmd.exe /K cd ${src}`)
         }
     })
     /**
@@ -82,6 +82,14 @@ export function watch_app() {
         } else {
             cp.exec(` open -a "Visual Studio Code" "${src}" `)
         }
+    })
+    /** 删除项目 */
+    ipcMain.on('remove-it', (e, src: string) => {
+        if (fs.existsSync(src)) {
+            fs.emptyDirSync(src)
+            fs.rmdirSync(src)
+        }
+        e.returnValue = true
     })
     /** 判断项目具体类型 */
     ipcMain.on('app-focu-type', (e, src) => {

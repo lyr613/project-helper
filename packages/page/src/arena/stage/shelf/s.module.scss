@@ -166,14 +166,22 @@ $chei: 150px;
 	}
 }
 
-.openbtn {
-	margin: 0;
-	line-height: 30px;
-	font-size: 14px;
-	cursor: pointer;
-	opacity: 0.8;
-	&:hover {
-		opacity: 1;
-		color: #347b9e;
+.TheOpen {
+	.openbtn {
+		display: inline-block;
+		vertical-align: top;
+		margin: 0;
+		width: 50%;
+		line-height: 30px;
+		font-size: 14px;
+		cursor: pointer;
+		opacity: 0.8;
+		&:hover {
+			opacity: 1;
+			color: #347b9e;
+		}
+	}
+	.danger {
+		color: red;
 	}
 }

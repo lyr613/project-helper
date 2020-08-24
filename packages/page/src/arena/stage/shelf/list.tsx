@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import s from './s.module.scss'
 import { useObservable } from 'rxjs-hooks'
 import { ipc } from '@/const'
-import { app_focu$ } from '@/source/app'
+import { app_focu$, app_find$ } from '@/source/app'
 import { list_filtered$, filter$ } from './subj'
 import { app_type } from '@/source'
 import { next_router } from '@/function/router'
@@ -204,6 +204,17 @@ function TheOpen(p: p) {
 				}}
 			>
 				用vscode打开
+			</p>
+			<p
+				className={[s.openbtn, s.danger].join(' ')}
+				onDoubleClick={() => {
+					ipc().sendSync('remove-it', p.app.src)
+					setTimeout(() => {
+						alert('删完了')
+					}, 100)
+				}}
+			>
+				删除
 			</p>
 		</div>
 	)
